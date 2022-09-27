@@ -4045,8 +4045,18 @@ declare var DOMRect: {
     fromRect(other?: DOMRectInit): DOMRect;
 };
 
-type SVGRect = DOMRect;
-declare var SVGRect: typeof DOMRect;
+interface SVGRect {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
+
+declare var SVGRect: {
+    prototype: SVGRect;
+    new(x?: number, y?: number, width?: number, height?: number): SVGRect;
+    fromRect(other?: DOMRectInit): SVGRect;
+};
 
 interface DOMRectList {
     readonly length: number;
@@ -12523,7 +12533,7 @@ declare var SVGGradientElement: {
 /** SVG elements whose primary purpose is to directly render graphics into a group. */
 interface SVGGraphicsElement extends SVGElement, SVGTests {
     readonly transform: SVGAnimatedTransformList;
-    getBBox(options?: SVGBoundingBoxOptions): DOMRect;
+    getBBox(options?: SVGBoundingBoxOptions): SVGRect;
     getCTM(): DOMMatrix | null;
     getScreenCTM(): DOMMatrix | null;
     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGGraphicsElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
